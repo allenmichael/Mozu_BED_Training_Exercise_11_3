@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Linq;
 
-namespace Mozu_BED_Training_Exercise_11_1
+namespace Mozu_BED_Training_Exercise_11_3
 {
     [TestClass]
     public class MozuDataConnectorTests
