@@ -34,7 +34,7 @@ namespace Mozu_BED_Training_Exercise_11_3
             var productResource = new Mozu.Api.Resources.Commerce.Catalog.Admin.ProductResource(_apiContext);
 
             //Get products
-            var products = (productResource.GetProductsAsync(startIndex: 0, pageSize: 200).Result);
+            var products = productResource.GetProductsAsync(startIndex: 0, pageSize: 200).Result;
 
             //Add Your Code: 
             //Write total number of products to output window
@@ -78,25 +78,26 @@ namespace Mozu_BED_Training_Exercise_11_3
             //Add Your Code: 
             //Get inventory
             var inventory = inventoryResource.GetLocationInventoryAsync("WRH01", "LUC-BAG-007").Result;
+
             
             //Demostrate utility methods
-            //var collectionsList =  await StoreMultipleProductCollections(productResource);
+            var collectionsList =  await StoreMultipleProductCollections(productResource);
 
-            //var products = ReturnProductsFromProductCollections(collectionsList);
+            var productsFromCollections = ReturnProductsFromProductCollections(collectionsList);
                         
         }
 
         [TestMethod]
         public void Exercise_11_2_Create_New_Product()
         {
-            var productCode = "LUC-BAG-010";
+            var productCode = "LUC-BAG-011";
 
             //Grouped our necessary resources for defining aspects of the new product
             var productResource = new Mozu.Api.Resources.Commerce.Catalog.Admin.ProductResource(_apiContext);
             var productTypeResource = new Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition.ProductTypeResource(_apiContext);
             var categoryResource = new Mozu.Api.Resources.Commerce.Catalog.Admin.CategoryResource(_apiContext);
             var productAttributeResource = new Mozu.Api.Resources.Commerce.Catalog.Admin.Attributedefinition.AttributeResource(_apiContext);
-
+            
             //Wrap the Delete call in a try/catch in case the product doesn't exist
             try
             {
@@ -121,7 +122,7 @@ namespace Mozu_BED_Training_Exercise_11_3
             //Define the monogram as a ProductExtra to use when defining the Product
             var monogramContract = new Mozu.Api.Contracts.ProductAdmin.ProductExtra()
             {
-                AttributeFQN = monogram.AttributeFQN,
+                AttributeFQN = monogram.AttributeFQN
             };
 
             //The actual List<ProductExtra> object added to the Product Contract
@@ -166,7 +167,7 @@ namespace Mozu_BED_Training_Exercise_11_3
             {
                 Content = new Mozu.Api.Contracts.ProductAdmin.ProductLocalizedContent()
                 {
-                    ProductName = "Sporty Handbag",
+                    ProductName = "Api Handbag",
                     LocaleCode = "en-US"
                 },
                 FulfillmentTypesSupported = new List<string>() 
@@ -177,6 +178,10 @@ namespace Mozu_BED_Training_Exercise_11_3
                 IsTaxable = true,
                 Extras = productExtraList,
                 Options = productOptionList,
+                PublishingInfo = new Mozu.Api.Contracts.ProductAdmin.ProductPublishingInfo()
+                {
+                    PublishedState = "Live"
+                },
                 PackageHeight = new Mozu.Api.Contracts.Core.Measurement()
                 {
                     Unit = "in",
@@ -225,7 +230,7 @@ namespace Mozu_BED_Training_Exercise_11_3
                         Content = new Mozu.Api.Contracts.ProductAdmin.ProductLocalizedContent()
                         {
                             LocaleCode = "en-US",
-                            ProductName = "Sporty Handbag",
+                            ProductName = "Api Handbag",
                         },
                         ProductCategories = new List<Mozu.Api.Contracts.ProductAdmin.ProductCategory>()
                         {
@@ -244,6 +249,7 @@ namespace Mozu_BED_Training_Exercise_11_3
             var newProduct = productResource.AddProductAsync(product).Result;
 
             var variationResource = new Mozu.Api.Resources.Commerce.Catalog.Admin.Products.ProductVariationResource(_apiContext);
+
 
         }
 
