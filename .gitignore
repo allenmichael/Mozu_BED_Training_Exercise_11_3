@@ -5,3 +5,4 @@
 *.v12.suo
 Mozu.config
 /TestResults
+[Bb]uild/
