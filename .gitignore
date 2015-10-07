@@ -4,5 +4,8 @@
 [Rr]elease*/
 *.v12.suo
 Mozu.config
-/TestResults
+TestResults/
+packages/
 [Bb]uild/
+.nuget/
+*.user
